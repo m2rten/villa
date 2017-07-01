@@ -1,0 +1,35 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<body>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>Pangaliikumised</title>		
+		
+		
+		<!-- 3. Add the container -->
+     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ng-table/0.8.3/ng-table.css"> -->
+
+    <div class="row row-content" ng-controller="pangaliikumisedCtrl" >
+	  <table class="table table-striped" at-table at-paginated at-list="list" at-config="config">
+	  <thead></thead>
+	  <tbody>
+	  <thead>
+	  <td>Kuupäev</td>
+	  <td>Maksja</td>
+	  <td>Summa</td>
+	  <td>Selgitus</td>
+	  <td>Saaja eesnimi</td>
+	  <td>Saaja perenimi</td>
+	  </thead>
+		<tr ng-repeat="row in pangaliikumised" >
+			<td at-implicit at-sortable at-attribute="index" width="150" at-initial-sorting="asc">{{ row.kpv | date : 'dd-MM-yyyy' }}</td>
+			<td width='150'>{{ row.partner }}</td>
+			<td width='150'>{{ row.summa }}</td>
+			<td width='150'>{{ row.selgitus}}</td>
+			<td width='150'>{{ row.firstname }}</td>
+			<td width='150'>{{ row.lastname }}</td>
+		</tr>
+		<tbody>
+	</table>
+	</div>
+</body>
+</html>

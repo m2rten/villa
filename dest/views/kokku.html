@@ -1,0 +1,20 @@
+<html>
+<body>
+<div class="row row-content" ng-controller="kokkuCtrl" >
+Pangas:    {{pangas}}
+</br>
+Sula:    {{sula}}
+</br>
+Liikmete võlad:     {{lvolad*(-1)}}
+</br>
+Liikmete ettemaksud:     {{ettemaksud*(-1)}}
+
+</br>
+Kokku: {{pangas + sula - lvolad - ettemaksud}}
+<br>
+<br>
+Viimane arvestatud pangatehing:</br>
+{{makskpv | date : 'dd-MM-yyyy' }}
+</div>
+</body>
+</html>

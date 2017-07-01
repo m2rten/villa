@@ -1,0 +1,32 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<body>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>Saldo</title>		
+		
+		<!-- 1. Add these JavaScript inclusions in the head of your page -->
+    <script src="/bower_components/at-table/dist/angular-table.js"></script>
+	<script src="/bower_components/at-table/dist/angular-table.min.js"></script>
+		
+		<!-- 3. Add the container -->
+     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ng-table/0.8.3/ng-table.css"> -->
+
+    <div class="row row-content" ng-controller="saldoCtrl" >
+
+	  <table class="table table-striped" at-table at-paginated at-list="list" at-config="config">
+	  <thead></thead>
+	  <tbody>
+		<tr ng-repeat="row in saldo" >
+			<td at-implicit at-sortable at-attribute="index" width="150" at-initial-sorting="asc">{{ row.lastname }}</td>
+			<td width='150'>{{ row.firstname }}</td>
+			<td width='150'>{{ row.type }}</td>
+			<td width='150' ng-if="row.saldo<-100" style="background-color:red">{{ row.saldo}}</td>
+			<td width='150' ng-if="row.saldo>-100 && row.saldo<0" style="background-color:pink">{{ row.saldo}}</td>
+			
+			<td width='150' ng-if="row.saldo==0 || row.saldo>0" >{{ row.saldo}}</td>
+		</tr>
+		<tbody>
+	</table>
+	</div>
+</body>
+</html>

@@ -1,0 +1,182 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>Saldo</title>		
+		<!-- 1. Add these JavaScript inclusions in the head of your page -->
+    <script src="/bower_components/at-table/dist/angular-table.js"></script>
+	<script src="/bower_components/at-table/dist/angular-table.min.js"></script>
+	
+<style>
+  .container-fluid {
+      padding-top: 50px;
+      padding-bottom: 50px;
+	  padding-right: 50px;
+	  padding-left: 50px;
+  }
+</style>
+<div class="container-fluid bg-1" >
+	<div ng-controller="liikmedCtrl" >  
+	 <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Muuda liige</h4>
+        </div>
+        <div class="modal-body">
+			<div class="row">
+				<div class="col-xs-3">
+					<label for="ch_firstname">Eesnimi</label>
+						<input type="text" class="form-control" ng-model="changeLiige.firstname" id="ch_firstname"/>
+				</div>
+				<div class="col-xs-3">
+					<label for="ch_lastname">Perekonna nimi</label>
+						<input type="text" class="form-control" ng-model="changeLiige.lastname" id="ch_lastname"/>
+				</div>
+					<div class="col-xs-2">
+						<label for="ch_type">Tüüp</label>
+						<select ng-model="changeLiige.type" style="height:30px; width:100px">
+							<option id="ch_type" type="text"  ng-repeat="row in types" value="{{row.type}}">{{row.type}}</option>
+						</select>
+					</div>
+					<div class="col-xs-2" >
+						<label for="ch_status">Status</label>
+						</br>
+						<select ng-model="changeLiige.status" style="height:30px; width:100px; left-padding:30px">
+							<option id="ch_status" type="text"  ng-repeat="row in statuses" value="{{row.status}}">{{row.status}}</option>
+						</select>
+					</div>
+
+			</div>
+        </div>
+        <div class="modal-footer">
+						<button ng-click="updateLiige()" class="btn btn-success" >Salvesta</button>
+
+					     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+		<div class="row">
+			<div class="col-sm-6" >
+				<table class="table table-striped" at-table at-paginated at-list="list" at-config="config">
+					<col width="20">
+					<col width="40">
+					<col width="80">
+					<col width="80">
+					<col width="20">
+					<col width="80">
+					<col width="20">
+				<tbody>
+				<tr>
+					<th ng-click="orderByMe('firstname')">Eesnimi</th>
+					<th ng-click="orderByMe('lastname')">Perekonnanmi</th>
+					<th ng-click="orderByMe('status')">Staatus</th>
+					<th ng-click="orderByMe('type')">Type</th>
+					<th ng-click="orderByMe('saldo')">Saldo</th>
+					<th>Info</th>
+					<th>Edit</th>
+				</tr>
+				<tr ng-repeat="row in saldo | orderBy:OrderBy |bystatuses:statusfilters" >
+					<td>{{ row.firstname }}</td>
+					<td at-implicit at-sortable at-attribute="index" at-initial-sorting="asc">{{ row.lastname }}</td>
+					<td >{{ row.status }}</td>
+					<td >{{ row.type }}</td>
+					<td  ng-if="row.saldo<-50" style="color:red">{{ row.saldo}}</td>
+					
+					<td ng-if="row.saldo==-50 || row.saldo>-50" >{{ row.saldo}}</td>
+					<td><button type="button" class="btn btn-default btn-sm" ui-sref="app.player({player_id:row.maksja})">
+					<span class="glyphicon glyphicon-info-sign"></span> Info
+					</button></td>
+					<td>
+						<button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModal" ng-click="edit(row)">
+							<span class="glyphicon glyphicon-edit"></span> Edit
+						</button>
+					</td>
+				</tr>
+				<tbody>
+				</table> 
+			</div>
+			<div class="col-sm-5" >
+				<form>
+					<div class="panel panel-default">
+						<div class="panel-heading">Filtreerimine</div>
+						<div class="panel-body">
+							<div class="checkbox">
+								<label><input type="checkbox" ng-model="statusfilters.active" ng-init="statusfilters.active=true" /> Active</label>
+							</div>
+							<div class="checkbox">
+								<label><input type="checkbox" ng-model="statusfilters.deactive" ng-init="statusfilters.deactive=true"> Deactive </label>
+							</div>
+							<div class="checkbox">
+								<label><input type="checkbox" ng-model="statusfilters.mahakantud"  ng-init="statusfilters.mahakantud=false"/> Mahakantud</label>
+							</div>
+						</div>
+					</div>
+				</form>
+					<div class="panel panel-default">
+						<div class="panel-heading">Lisa uus liige</div>
+						<div class="panel-body">
+							<div class="container">
+									<form name="liikmesisetamine" ng-controller="liikmedCtrl" >
+										<div class="row">
+										<div class="col-xs-2">
+											<div class ="row">
+												<div class="col-xs-12">
+													<label for="lastname">Eesnimi</label>
+													<input type="text" class="form-control" ng-model="formData.firstname"  id="firstname">
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-xs-12">
+													<label for="lastname">Perekonna nimi</label>
+													<input type="text" class="form-control" ng-model="formData.lastname"  id="lastname">
+												</div>
+											</div>
+											</br>
+											<div class="row">
+												<div class="col-xs-2">
+													<label for="type">Tüüp</label>
+													</br>
+													<select ng-model="formData.type" style="height:30px; width:165px">
+														<option id="type" type="text"  ng-repeat="row in types" value="{{row.type}}">{{row.type}}</option>
+													</select>
+												</div>
+											</div>
+											</br>
+											<div class="row">
+												<div class="col-xs-2">
+													<label for="status">Status</label>
+													</br>
+													<select ng-model="formData.liikme_status" style="height:30px; width:165px">
+														<option id="status" type="text"  ng-repeat="row in statuses" value="{{row.status}}">{{row.status}}</option>
+													</select>
+												</div>
+											</div>
+											</br>
+											<div class ="row">
+												<div class="col-xs-2">
+													<button ng-click="lisaLiige()" class="btn btn-success" >Lisa</button>
+												</div>
+											</div>
+										</div>
+											<div class="col-xs-2">
+												</br>
+												</br>
+													<p ng-if=successLisamine class="alert alert-success">{{successLisamine}} </br>{{firstname}} {{lastname}}</br> {{type}} {{status}}</p>
+													<p ng-if=errorMessage class="alert alert-danger">{{errorMessage}}</p>
+												</div>
+										</div>
+										</form>
+										</div>
+								</div>
+						</div>
+					</div>
+			</div>
+			<div class="col-sm-1" ></div>
+		</div>
+	</div>
+</div>
+

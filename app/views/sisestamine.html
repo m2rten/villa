@@ -1,0 +1,132 @@
+<html>
+<style>
+.container-fluid {
+  padding-top: 50px;
+  padding-bottom: 50px;
+  padding-right: 50px;
+  padding-left: 50px;
+}
+table, th , td  {
+  border: 1px solid grey;
+  border-collapse: collapse;
+  padding: 5px;
+}
+table tr:nth-child(odd) {
+  background-color: #f1f1f1;
+}
+table tr:nth-child(even) {
+  background-color: #ffffff;
+}
+
+</style>
+<body>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>Nõude sisetamine</title>		
+		
+		<!-- 1. Add these JavaScript inclusions in the head of your page -->
+    <script src="/bower_components/at-table/dist/angular-table.js"></script>
+	<script src="/bower_components/at-table/dist/angular-table.min.js"></script>
+		
+		<!-- 3. Add the container -->
+     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ng-table/0.8.3/ng-table.css"> -->
+<div class="container-fluid bg-1" ng-controller="sisseCtrl" >
+		<div class="row">
+			<div class="col-xs-3">
+				<div class ="row">
+					<div class="col-xs-6">
+						<label for="n_maksja">Maksja</label>
+						</br>
+						<select ng-model="formData.maksja" style="height:30px"  >
+						<option type="text" class="form-control" id="n_maksja" ng-repeat="row in liikmed" value="{{row.id}}">{{row.lastname}} {{row.firstname}}</option>
+						</select>
+					</div>
+				</div>
+				<div class ="row">
+					<div class="col-xs-6">
+						<label for="n_price">Summa</label>
+						<input style="width:60px" type="text" class="form-control" ng-model="formData.price"  id="n_price">
+					</div>
+				</div>
+				<div class ="row">
+					<div class="col-xs-6">
+						<label for="n_kaup">Kaup</label>
+						<input style="width:60px" type="text" class="form-control" ng-model="formData.kaup"  id="n_price">
+					</div>
+				</div>
+				<div class ="row">
+					<div class="col-xs-6">
+						<label for="n_tekkekpv">Kuupäev</label>
+						<input style="width:60px" type="text" class="form-control" ng-model="formData.tekkekpv"  id="n_tekkekpv">
+					</div>
+				</div>
+				</br>
+				<div class="row">
+					<div class="col-xs-6">
+						<button ng-click="addNoue()" class="btn btn-success" >Lisa nõude</button>
+					</div>
+				</div>				
+					<tt>{{ successNoue }}</tt>
+			</div>
+			<div class="col-xs-3">
+				<div class ="row">
+							<div class="col-xs-6">
+								<label for="price">Täishind</label>
+								<input style="width:60px" type="text" class="form-control" ng-model="bulkData.price"  id="price">
+							</div>
+				</div>
+				<div class ="row">
+							<div class="col-xs-6">
+								<label for="student_price">Õpilase hind</label>
+								<input style="width:60px" type="text" class="form-control" ng-model="bulkData.student_price"  id="student_price">
+							</div>
+				</div>
+				<div class ="row">
+							<div class="col-xs-6">
+								<label for="kaup">Kaup</label>
+								<input type="text" class="form-control" ng-model="bulkData.kaup"  id="kaup">
+							</div>
+				</div>
+				<div class ="row">
+							<div class="col-xs-6">
+								<label for="kpv">Kuupäev</label>
+								<input type="date" class="form-control" name="input" ng-model="bulkData.kpv" id="kpv">
+							</div>
+				</div>
+				</br>
+				<div class="row">
+					<div class="col-xs-6">
+						<button ng-click="lisaBulk()" class="btn btn-success" >Lisa nõuded</button>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-6">
+				<center><img ng-if=!successNouded src="views/football.jpg" style="width:300px;height:300px;"></center>
+				<p ng-if=successNouded class="alert alert-success">{{successNouded}}</p>
+				<table class="table table-striped" at-table at-paginated at-list="list" at-config="config">
+					<col width="40">
+					<col width="40">
+					<col width="20">
+					<col width="40">
+					<col width="40">
+				<tbody>
+				<tr ng-if=nouded>
+					<th >Eesnimi</th>
+					<th >Perekonnanmi</th>
+					<th >Summa</th>
+					<th >Kaup</th>
+					<th >Tekke kpv</th>
+				</tr>
+				<tr ng-repeat="row in nouded" >
+					<td>{{ row.firstname }}</td>
+					<td >{{ row.lastname }}</td>
+					<td >{{ row.summa }}</td>
+					<td >{{ row.kaup }}</td>
+					<td >{{ row.tekkekpv }}</td>
+				</tr>
+				<tbody>
+				</table> 
+			</div>
+		</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,95 @@
+<html>
+<style>
+.container-fluid {
+  padding-top: 30px;
+  padding-bottom: 50px;
+  padding-right: 50px;
+  padding-left: 50px;
+}
+table, th , td  {
+  border: 1px solid grey;
+  border-collapse: collapse;
+  padding: 5px;
+}
+table tr:nth-child(odd) {
+  background-color: #f1f1f1;
+}
+table tr:nth-child(even) {
+  background-color: #ffffff;
+}
+
+</style>
+<body>
+<div class="container-fluid bg-1" ng-controller="playerCtrl">
+		<div class="row">
+			<div class="col-xs-3">
+				<h2> {{eesnimi}} {{perenimi}}</h2>
+				<select ng-model="selectedPlayer" ng-change="getInfo()">
+				<option ng-repeat="row in liikmed" value="{{row.id}}">{{row.lastname}} {{row.firstname}}</option>
+				</select>
+			</div>
+			<div class="col-xs-3">
+				<h3 ng-if="noudedsumma">Summary</h3>
+					<table class="table" table width="40%">
+						<tr ng-if="noudedsumma">
+						<td>Nõuded</td>
+						<td>{{noudedsumma[0]["summa"]}}</td>
+						</tr>
+								<tr ng-if="panksumma">
+						<td>Laekumised</td>
+						<td>{{panksumma[0]["summa"]}}</td>
+						</tr>
+						<tr ng-if="noudedsumma">
+						<td>BILANSS</td>
+						<td><b>{{panksummaint  - noudedsummaint}}</b></td>
+						</tr>
+					</table>
+			</div>
+			<div class="col-xs-3">
+				</br>
+				</br>
+				<label for="alates">Alates</label>
+				<input type="date" class="form-control" name="input" ng-model="formData.alates" id="alates">
+				<label for="kpv">Kuni</label>
+				<input type="date" class="form-control" name="input" ng-model="formData.kuni" id="kuni">
+			</div>
+		</div>
+  
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>Player</title>		
+		
+		<!-- 1. Add these JavaScript inclusions in the head of your page -->
+    <script src="/bower_components/at-table/dist/angular-table.js"></script>
+	<script src="/bower_components/at-table/dist/angular-table.min.js"></script>
+		
+		<!-- 3. Add the container -->
+     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ng-table/0.8.3/ng-table.css"> -->
+
+		<div class="row">
+			<div class="col-xs-6">
+
+					<h3 ng-if="nouded"> Nõuded </h3>
+					  <table class="table" >
+						<tr ng-repeat="row in nouded">
+							<td> <button type="button" class="btn btn-default btn-sm" ng-click="deleteNoue(row.nouded_id)"><span class="glyphicon glyphicon-trash"></span> Delete </button></td>
+							<td>{{ row.kaup }}</td>
+							<td>{{ row.summa }}</td>
+						</tr>
+					</table>
+			</div>
+			<div class="col-xs-6">
+				<h3 ng-if="pank">Laekumised</h3>
+				<table class="table">
+					<tr ng-repeat="row in pank">
+						<td>{{ row.kpv | date : 'dd-MM-yyyy' }}</td>
+						<td>{{ row.partner }}</td>
+						<td>{{ row.summa }}</td>
+						<td>{{ row.selgitus }}</td>
+						<td>{{ row.tyyp }}</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<html>
+<body>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>Player</title>		
+		
+		<!-- 1. Add these JavaScript inclusions in the head of your page -->
+    <script src="/bower_components/at-table/dist/angular-table.js"></script>
+	<script src="/bower_components/at-table/dist/angular-table.min.js"></script>
+		
+		<!-- 3. Add the container -->
+     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ng-table/0.8.3/ng-table.css"> -->
+
+    <div class="row row-content" ng-controller="playerCtrl" >
+<select ng-model="selectedPlayer" ng-change="getInfo()">
+<option ng-repeat="row in liikmed" value="{{row.id}}">{{row.lastname}} {{row.firstname}}</option>
+
+
+</select>
+<h4> {{playerName}}</h4>
+<h3 ng-if="noudedsumma">Summary</h3>
+	<table class="table">
+
+		<tr ng-if="noudedsumma">
+		<td>Nõuded</td>
+		<td>{{noudedsumma[0]["summa"]}}</td>
+		</tr>
+				<tr ng-if="panksumma">
+		<td>Laekumised</td>
+		<td>{{panksumma[0]["summa"]}}</td>
+		</tr>
+		<tr ng-if="noudedsumma">
+		<td>BILANSS</td>
+		<td><b>{{panksummaint  - noudedsummaint}}</b></td>
+		</tr>
+	</table>
+<h3 ng-if="nouded"> Nõuded </h3>
+	  <table class="table" >
+		<tr ng-repeat="row in nouded">
+			<td> <button ng-click="deleteNoue(row.nouded_id)"> Delete </button></td>
+			<td>{{ row.kaup }}</td>
+			<td>{{ row.summa }}</td>
+		</tr>
+	</table>
+<h3 ng-if="pank">Laekumised</h3>
+	<table class="table">
+		<tr ng-repeat="row in pank">
+			<td>{{ row.kpv | date : 'dd-MM-yyyy' }}</td>
+			<td>{{ row.partner }}</td>
+			<td>{{ row.summa }}</td>
+			<td>{{ row.selgitus }}</td>
+			<td>{{ row.tyyp }}</td>
+		</tr>
+	</table>
+
+	
+	</div>
+</body>
+</html>

@@ -1,0 +1,31 @@
+{
+  "name": "villa",
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "moduleType": [
+    "node"
+  ],
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-animate": "1.4.8",
+    "angular-material": "1.0.0",
+    "angular-mocks": "~1.4.8",
+    "angular-route": "~1.4.8",
+    "angular-ui-router": "~0.2.15",
+    "bootstrap": "~3.3.5",
+    "at-table": "~1.0.7",
+    "angular-resource": "~1.4.8",
+    "highcharts-ng": "~0.0.11",
+    "highcharts": "~4.2.1",
+    "font-awesome": "~4.4.0"
+  }
+}

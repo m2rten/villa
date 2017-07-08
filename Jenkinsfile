@@ -16,6 +16,17 @@ pipeline {
                 bat 'py.test --junitxml tests/results.xml tests/trial.py'
             }
                       }
+     stage('Sanity check') {
+            steps {
+                input "Does the staging environment look ok?"
+            }
+        }
+
+        stage('Deploy - Production') {
+            steps {
+                bat 'echo deploy to live'
+            }
+        }
             }   
     post {
         always {

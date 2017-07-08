@@ -1,10 +1,25 @@
 pipeline {
-    agent { docker 'node:6.3' }
+    agent any
     stages {
         stage('build') {
             steps {
-                sh 'npm --version'
+                bat 'echo really not building anything
             }
         }
-    }
+         stage('Deploy to test') {
+            steps {
+                bat 'node "C:\Users\marten\code\aws\minuapp\app\app.js""'
+            }  
+   
+        stage('Test') {
+            steps {
+                bat 'py.test --junitxml tests/results.xml tests/trial.py'
+            }
+                      }
+            }   
+    post {
+        always {
+            junit 'tests/results.xml'
+        }
+         }
 }

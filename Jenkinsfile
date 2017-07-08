@@ -6,9 +6,9 @@ pipeline {
                 bat 'echo really not building anything'
             }
         }
-         stage('Deploy to test') {
+        stage('Deploy to test') {
             steps {
-                bat 'node "C:\\Users\\marten\\code\\aws\\minuapp\\app\\app.js"'
+                bat 'echo deploying'
             }  
                               }
         stage('Test') {

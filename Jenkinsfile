@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('build') {
             steps {
-                bat 'echo really not building anything
+                bat 'echo really not building anything'
             }
         }
          stage('Deploy to test') {

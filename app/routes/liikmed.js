@@ -5,8 +5,25 @@ var path = require('path');
 var connectionString = require(path.join(__dirname, '../', 'config'));
 module.exports = router;
 
-router.post('/api/v1/liikmed', function(req, res) {
 
+router.post('/api/v1/upload', function(req, res) {
+  if (!req.files)
+    return res.status(400).send('No files were uploaded.');
+ console.log(req);
+  // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file 
+  let sampleFile = req.files.sampleFile;
+ 
+  // Use the mv() method to place the file somewhere on your server 
+  sampleFile.mv('C:/Users/marten/code/nodetest/testfile.pdf', function(err) {
+    if (err)
+      return res.status(500).send(err);
+ 
+    res.send('File uploaded!');
+  });
+});
+
+router.post('/api/v1/liikmed', function(req, res) {
+	console.log("liikmed");
   var results =[]
     // Grab data from http request
     var data = {liikme_status: req.body.liikme_status, type: req.body.type, firstname: req.body.firstname, lastname: req.body.lastname};

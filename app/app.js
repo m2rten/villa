@@ -3,12 +3,13 @@
  */
 
 var express = require('express')
+  , bodyParser = require('body-parser')
   , routes = require('./routes/index')
   , http = require('http')
   , path = require('path')
   ,logger = require('morgan')
   , cookieParser = require('cookie-parser')
-  , bodyParser = require('body-parser')
+
   , debug = require('debug')
   //, basicAuth = require('basic-auth-connect')
   ;
@@ -16,7 +17,7 @@ const fileUpload = require('express-fileupload');
   
 var app = express();
 app.use(fileUpload());
-
+app.use(bodyParser.json());
 //app.use(basicAuth('admin', '3ston51LLa'));
 //app.use(bodyParser.json());
 //app.use(bodyParser.urlencoded({ extended: false }));
